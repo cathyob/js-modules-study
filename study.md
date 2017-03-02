@@ -46,16 +46,24 @@ should get you warmed-up for completing the labs that follow.
 
 ```js
 function ModuleFactory(args) {
+  // sets variable to made up function with 1 param
+  // is hidden
   let variable = someTransformationOf(args);
 
   return {
+    // property is a variable that we can access
+    // value is something we don't know yet
     property : value,
+    // javascript object : function to get the variable
     getterMethod : function() {
       // has access to `variable` above
+      // returns the variable for later use
       return variable;
     },
+    // function to set the value to the value provided as an argument
     setterMethod : function(value) {
       // has access to `variable` above
+      // sets the line 50 variable as the provided value
       variable = value;
     }
   };
@@ -63,6 +71,11 @@ function ModuleFactory(args) {
 
 let myModule = ModuleFactory(someArgs);
 // How would you use the getter and setter methods? What would they do?
+// myModule.getterMethod()
+// myModule.setterMethod(a_value)
+// myModule.property to get or set (below)
+// myModule.property = "ABC"
+// a = 1 + myModule.property
 ```
 
 ### IIFEs
@@ -73,18 +86,24 @@ A undressed, unembellished, inline module:
 ```js
 let myModule = (function(arg, transform) {
   // secret internals
+  // is hidden variable
   let value = arg;
 
   // exports
   return function() {
     // has access to secret internals!
+    // myModule is a function that will take the hidden value we saved as arg and transform it
     value = transform(value);
 
+    // then will return it
     return value;
   };
+// takes line 87 arg/transform and sets to someValue/someFunction
 })(someValue, someFunction);
 
 // How would you use myModule?
+// myModule()
+
 ```
 
 From outside, we can't access the variable `value` inside the module. This is
